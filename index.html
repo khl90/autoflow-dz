@@ -338,75 +338,82 @@
   .flow-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3px;
+    gap: 16px;
     margin-top: 80px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
   }
 
   .flow-card {
     background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 48px;
     position: relative;
-    transition: background 0.3s;
+    transition: all 0.3s;
     overflow: hidden;
   }
-  .flow-card:hover { background: var(--surface2); }
+  .flow-card:hover {
+    background: var(--surface2);
+    border-color: rgba(0,255,135,0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
   .flow-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), transparent);
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
     opacity: 0;
     transition: opacity 0.3s;
+    border-radius: 12px 12px 0 0;
   }
   .flow-card:hover::before { opacity: 1; }
 
   .flow-number {
     font-family: 'Space Mono', monospace;
-    font-size: 64px;
+    font-size: 72px;
     font-weight: 700;
-    color: rgba(255,255,255,0.04);
+    color: rgba(0,255,135,0.06);
     line-height: 1;
     margin-bottom: 24px;
     position: absolute;
-    top: 24px; right: 32px;
+    top: 20px; right: 28px;
   }
   .flow-icon {
-    width: 48px; height: 48px;
-    background: rgba(0,255,135,0.1);
-    border: 1px solid rgba(0,255,135,0.2);
-    border-radius: 8px;
+    width: 52px; height: 52px;
+    background: rgba(0,255,135,0.12);
+    border: 1px solid rgba(0,255,135,0.3);
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 24px;
   }
   .flow-card h3 {
     font-family: 'Syne', sans-serif;
     font-size: 22px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     letter-spacing: -0.5px;
+    color: #ffffff;
   }
   .flow-card p {
     font-size: 15px;
-    color: var(--muted2);
-    line-height: 1.7;
-    font-weight: 300;
+    color: #aaaaaa;
+    line-height: 1.75;
+    font-weight: 400;
   }
   .flow-tag {
     display: inline-block;
-    margin-top: 20px;
-    padding: 4px 10px;
-    background: rgba(0,255,135,0.08);
-    border: 1px solid rgba(0,255,135,0.15);
-    border-radius: 4px;
+    margin-top: 24px;
+    padding: 6px 12px;
+    background: rgba(0,255,135,0.1);
+    border: 1px solid rgba(0,255,135,0.25);
+    border-radius: 6px;
     font-size: 11px;
     color: var(--accent);
     font-family: 'Space Mono', monospace;
     letter-spacing: 0.5px;
+    font-weight: 700;
   }
 
   /* WORKFLOWS SECTION */
@@ -872,8 +879,8 @@
 
   /* SCROLL REVEAL */
   .reveal {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .reveal.visible {
