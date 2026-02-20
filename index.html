@@ -1327,9 +1327,7 @@
   <div class="footer-copy">© 2025 AutoFlow DZ · Système qui automatise ton e-commerce · Algérie</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // CURSOR DISABLED
-
+<script>
   // SCROLL REVEAL
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
@@ -1350,56 +1348,62 @@
   }
 
   // CHAT ANIMATION
-  const chatMessages = document.getElementById('chatMessages');
-  const sequence = [
+  var chatStep = 0;
+  var chatSeq = [
     { type: 'typing', delay: 1500 },
-    { type: 'out', text: '🎤 [Message vocal] Salam ! Oui, nous avons les AirPods Pro en stock ! Souhaitez-vous plus d\'infos ?', delay: 2000 },
-    { type: 'in', text: 'Oui je suis intéressé', delay: 3500 },
+    { type: 'out', text: '🎤 Salam ! Oui, les AirPods Pro sont disponibles ! Plus d\'infos ?', delay: 2500 },
+    { type: 'in', text: 'Oui je suis intéressé', delay: 3000 },
     { type: 'typing', delay: 1200 },
-    { type: 'out', text: '✅ Super ! Un conseiller va vous appeler sous peu. Votre numéro a été noté. Merci !', delay: 2000 },
-    { type: 'telegram', text: '🔔 Alerte Telegram envoyée au vendeur', delay: 3000 },
+    { type: 'out', text: '✅ Un conseiller va vous appeler. Votre numéro est noté. Merci !', delay: 2500 },
+    { type: 'tg', text: '🔔 Alerte Telegram envoyée au vendeur', delay: 4000 },
   ];
 
-  let step = 0;
-  function nextStep() {
-    if (step >= sequence.length) {
-      setTimeout(() => {
-        chatMessages.innerHTML = '<div class="msg msg-in">Salam, vous avez des AirPods ?<span class="msg-time">14:23</span></div>';
-        step = 0;
-        // Start chat animation
-  document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(nextStep, 1000);
-  });
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    setTimeout(nextStep, 1000);
-  }
-      }, 5000);
+  function chatRun() {
+    var box = document.getElementById('chatMessages');
+    if (!box) return;
+    if (chatStep >= chatSeq.length) {
+      setTimeout(function() {
+        box.innerHTML = '<div class="msg msg-in">Salam, vous avez des AirPods ?<span class="msg-time">14:23</span></div>';
+        chatStep = 0;
+        setTimeout(chatRun, 2000);
+      }, 4000);
       return;
     }
-    const s = sequence[step];
-    step++;
-
+    var s = chatSeq[chatStep];
+    chatStep++;
     if (s.type === 'typing') {
-      const t = document.createElement('div');
+      var t = document.createElement('div');
       t.className = 'msg-typing';
-      t.id = 'typing';
+      t.id = 'typ';
       t.innerHTML = '<div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div>';
-      chatMessages.appendChild(t);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      setTimeout(() => {
-        const existing = document.getElementById('typing');
-        if (existing) existing.remove();
-        nextStep();
+      box.appendChild(t);
+      box.scrollTop = 9999;
+      setTimeout(function() {
+        var x = document.getElementById('typ');
+        if (x) x.remove();
+        chatRun();
       }, s.delay);
-    } else if (s.type === 'out' || s.type === 'in') {
-      const m = document.createElement('div');
-      m.className = 'msg msg-' + s.type;
-      m.innerHTML = s.text + '<span class="msg-time">14:2' + (3 + step) + '</span>';
-      chatMessages.appendChild(m);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      setTimeout(nextStep, s.delay);
-    } else if (s.type === 'telegram') {
-      const tg = document.createElement('div');
-      tg.style.cssText = 'text-align:center; font-size:10px; color: #00FF87; padding: 6px 10px; background: rgba(0,255,135,0.08); border-radius: 8px; margin: 4px auto; font-family: Space Mono, monospace;';
+    } else if (s.type === 'tg') {
+      var tg = document.createElement('div');
+      tg.style.cssText = 'text-align:center;font-size:10px;color:#00FF87;padding:6px 10px;background:rgba(0,255,135,0.1);border-radius:8px;margin:4px auto;font-family:monospace;';
       tg.textContent = s.text;
-      chatMessages
+      box.appendChild(tg);
+      box.scrollTop = 9999;
+      setTimeout(chatRun, s.delay);
+    } else {
+      var m = document.createElement('div');
+      m.className = 'msg msg-' + s.type;
+      m.innerHTML = s.text + '<span class="msg-time">14:2' + (chatStep + 2) + '</span>';
+      box.appendChild(m);
+      box.scrollTop = 9999;
+      setTimeout(chatRun, s.delay);
+    }
+  }
+
+  window.onload = function() {
+    setTimeout(chatRun, 1500);
+  };
+
+</script>
+</body>
+</html>
